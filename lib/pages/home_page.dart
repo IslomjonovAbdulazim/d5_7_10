@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,14 +9,58 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final formKey = GlobalKey<FormState>();
+  final specialChar = RegExp(r'[!@#$%^&*()_+-=[]{};:",.<>/?\\|`~]');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20),
-          child: Column(
-            children: [],
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Email...",
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Email is required";
+                    } else if (value!.contains("@") == false) {
+                      return "Email is invalid";
+                    }
+                  },
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Password...",
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Password is required";
+                    } else if (value! != "hello") {
+                      return "Password is incorrect";
+                    }
+                  },
+                ),
+
+
+                SizedBox(height: 20),
+                CupertinoButton(
+                  color: Colors.yellow,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {}
+                  },
+                  child: Center(child: Text("Save")),
+                ),
+              ],
+            ),
           ),
         ),
       ),
