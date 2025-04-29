@@ -44,8 +44,8 @@ class _HomePageState extends State<HomePage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Password is required";
-                    } else if (value! != "hello") {
-                      return "Password is incorrect";
+                    } else if (specialChar.hasMatch(value) == false) {
+                      return "Use at least one special character";
                     }
                   },
                 ),
