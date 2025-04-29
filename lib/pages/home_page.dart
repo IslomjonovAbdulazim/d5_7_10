@@ -10,7 +10,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final formKey = GlobalKey<FormState>();
-  final specialChar = RegExp(r'[!@#$%^&*()_+-=[]{};:",.<>/?\\|`~]');
+  final specialChar =
+      RegExp(r'[!@#\$%\^&\*\(\)_\+\-=\[\]\{\};:",\.<>\/\?\\|`~]');
+  final numbers = RegExp(r'[0-9]');
+  final capitalLetter = RegExp(r'[A-Z]');
+  final smallLetter = RegExp(r'[a-z]');
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +50,13 @@ class _HomePageState extends State<HomePage> {
                       return "Password is required";
                     } else if (specialChar.hasMatch(value) == false) {
                       return "Use at least one special character";
+                    } else if (numbers.hasMatch(value) == false) {
+                      return "Use at least one number";
+                    } else if (capitalLetter.hasMatch(value) == false) {
+                      return "Use at least one capital letter";
                     }
                   },
                 ),
-
-
                 SizedBox(height: 20),
                 CupertinoButton(
                   color: Colors.yellow,
